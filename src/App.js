@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+// apollo
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider, Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
-function App() {
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/'
+});
+
+class App extends React.Component {
+  render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ApolloProvider client={ client }>
+    <Query query={ gql`{
+      category {
+      products {
+        id
+        name
+        inStock
+        gallery
+        description
+        category
+        prices {
+          amount
+        }
+        brand
+      }}}`
+    }>
+      {({ data, loading, error }) => {
+        if( loading ) return <div>Loading...</div>;
+        if( error ) return <div>Error :(</div>;
+        
+        return( data.category.products.map( x => <div>{ x.name }</div> ));
+      }}
+    </Query>
+    </ApolloProvider>
+  )}
 }
 
 export default App;
