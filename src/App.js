@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.css';
+import Nav from './components/Nav';
+import Cardplp from './components/Cardplp';
 // apollo
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { ApolloProvider } from 'react-apollo';
+// redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+// browser
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/'
@@ -12,30 +18,19 @@ const client = new ApolloClient({
 class App extends React.Component {
   render() {
   return (
+    <BrowserRouter>
     <ApolloProvider client={ client }>
-    <Query query={ gql`{
-      category {
-      products {
-        id
-        name
-        inStock
-        gallery
-        description
-        category
-        prices {
-          amount
-        }
-        brand
-      }}}`
-    }>
-      {({ data, loading, error }) => {
-        if( loading ) return <div>Loading...</div>;
-        if( error ) return <div>Error :(</div>;
-        
-        return( data.category.products.map( x => <div>{ x.name }</div> ));
-      }}
-    </Query>
+    <Provider store={ store }>
+    
+    <Nav/>
+    
+    <Switch>
+      <Route exact path="/" component={ Cardplp }/>
+    </Switch>
+
+    </Provider>
     </ApolloProvider>
+    </BrowserRouter>
   )}
 }
 
