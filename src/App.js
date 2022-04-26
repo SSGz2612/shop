@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Cardplp from './components/Cardplp';
+import Cpdp from './components/Cpdp';
 // apollo
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
@@ -26,6 +27,7 @@ class App extends React.Component {
     
     <Switch>
       <Route exact path="/" component={ Cardplp }/>
+      <Route path="/cpdp/:id" component={ Cpdp }/>
     </Switch>
 
     </Provider>

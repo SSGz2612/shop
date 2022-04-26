@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import NavMenu from "./NavMenu";
 // import NavMenu from "./NavMenu";
 // import SelectCurrency from "./SelectCurrency";
 // import Modal from "./Modal";
@@ -28,7 +29,7 @@ class Nav extends React.Component {
         <NavPr>
         <NavBox>
             <ElNav>
-                {/* <NavMenu/> */}
+                <NavMenu/>
             </ElNav>
 
             <ElNav>

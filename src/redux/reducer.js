@@ -50,17 +50,17 @@ export const restImage = ( data ) => {
 const reducer = ( state = initialState, action ) => {
     switch( action.type ) {
         case "UPDATE_BASKET":
-        // let it = state.basket.find(( item ) => item.id === action.payload.id );
-        // return it ? {
-        //     ...state,
-        //     basket: state.basket.map(( item ) => item.id === action.payload.id ?
-        //     { ...item, quantity: item.quantity + 1 } : item ),
-        //     aCard: state.aCard + 1
-        // } : {
-        //     ...state,
-        //     basket: [ ...state.basket, { ...action.payload, quantity: 1, numImg: 0 }],
-        //     aCard: state.aCard + 1
-        // }
+        let it = state.basket.find(( item ) => item.id === action.payload.id );
+        return it ? {
+            ...state,
+            basket: state.basket.map(( item ) => item.id === action.payload.id ?
+            { ...item, quantity: item.quantity + 1 } : item ),
+            aCard: state.aCard + 1
+        } : {
+            ...state,
+            basket: [ ...state.basket, { ...action.payload, quantity: 1, numImg: 0 }],
+            aCard: state.aCard + 1
+        }
         
 
         // case "UPDATE_BASKET":
@@ -71,10 +71,10 @@ const reducer = ( state = initialState, action ) => {
 
 
         case "SELECT_PRODUCT":
-        // return {
-        //     ...state,
-        //     selProduct: [ action.payload ]
-        // }
+        return {
+            ...state,
+            selProduct: [ action.payload ]
+        }
         case "DELETE_PRODUCT":
         // let dl = state.basket.find(( item ) => item.id === action.payload.id );
         // return dl.quantity > 1 ? {

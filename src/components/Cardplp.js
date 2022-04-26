@@ -2,59 +2,43 @@ import React from "react";
 import ProductItem from "./ProductItem";
 // apollo
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { ctgQuery } from "../controls/queries";
 // styled
-import { BodyBox, Header, Img, ImgBlock } from "../controls/Styled";
+import { BodyBox, Header } from "../controls/Styled";
+// redux
+import { connect } from "react-redux";
 
 class Cardplp extends React.Component {
     render() {
-    return(
-        <Query query={ gql`{
-            category {
-            products {
-                id
-                name
-                inStock
-                gallery
-                description
-                category
-                prices {
-                amount
-                }
-                brand
-            }}}`
-        }>
-        {({ data, loading, error }) => {
-            if( loading ) return <div>Loading...</div>;
-            if( error ) return <div>Error :(</div>;
-            
-            return <>
-            <Header><b>ALL</b></Header>
-            { console.log( data )}
-            <BodyBox>{ data.category.products.map(( id, index ) => (
-            <ProductItem
-                key={ index }
-                id={ id.id }
-                name={ id.name }
-                inStock={ id.inStock }
-                galleryStock={ id.inStock === false ?
-                    <Img url={ id.gallery[0]}>
-                        <ImgBlock className="nn">
-                        <b>OUT OF STOCK</b>
-                        </ImgBlock>
-                    </Img> : <Img url={ id.gallery[0]}/> }
-                gallery={ id.gallery }
-                description={ id.description }
-                category={ id.category }
-                prices={ id.prices }
-                brand={ id.brand }
-            />
-            ))}
-            </BodyBox>
-            </>
-        }}
-        </Query>
-    )}
+        return(
+            <Query query={ ctgQuery }>
+            {({ data, loading, error }) => {
+                if( loading ) return <div>Loading...</div>;
+                if( error ) return <div>Error :(</div>;
+
+                console.log( this.props.selProduct );    
+                console.log( data.category.products.filter(( i ) => i.category === this.props.selProduct[0] ))
+
+                return <>
+                    <Header><b></b></Header>
+                    <BodyBox> <ProductItem
+                        data={ data.category.products.filter(( i ) => i.category === this.props.selProduct[0])}
+                    />
+                    </BodyBox>
+                </>
+            }}
+            </Query>
+        )}
 }
 
-export default Cardplp;
+// redux
+const mapStateToProps = state => {
+    return {
+        selProduct: state.selProduct
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)( Cardplp );

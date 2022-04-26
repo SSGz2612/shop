@@ -1,7 +1,7 @@
 import React from "react";
 // styled
 import {
-    AddItem2, AddItemBox, CardBox, ImgBox, InternBox, TextTittle
+    AddItem2, AddItemBox, CardBox, ImgBox, Img, ImgBlock, InternBox, TextTittle
 } from "../controls/Styled";
 // redux
 import { selectProduct, updtBasket } from "../redux";
@@ -10,81 +10,78 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class ProductItem extends React.Component {
-    // addToBasket = () => {
-    //     this.props.ab_dispatch({
-    //         id: this.props.id,
-    //         name: this.props.name,
-    //         inStock: this.props.inStock,
-    //         gallery: this.props.gallery,
-    //         description: this.props.description,
-    //         prices: this.props.prices,
-    //         brand: this.props.brand
-    //     })
-    // }
+    addToBasket = ( i ) => {
+        const toBsk = this.props.data.find(( x ) => x.id === i );
+        this.props.ab_dispatch( toBsk );
+        console.log( this.props.basket );
+    }
 
-    // openView = () => {
-    //     this.props.viw_product({
-    //         id: this.props.id,
-    //         name: this.state.name,
-    //         inStock: this.props.inStock,
-    //         gallery: this.props.gallery,
-    //         description: this.props.description,
-    //         prices: this.props.prices,
-    //         brand: this.props.brand
-    //     });
-    // }
+    openView = ( i ) => {
+        const selP = this.props.data.find(( x ) => x.id === i );
+        this.props.viw_product( selP );
+        console.log( selP );
+    }
     
     render() {
-    return(
-        <CardBox key={ this.props.id }>
+    return <>
+        { this.props.data.map(( i ) => (
+        <CardBox key={ i.id }>
             <InternBox>
-            <Link to="/cpdp"
-            // onClick={ this.openView }
-            >
-            <ImgBox>{ this.props.galleryStock }</ImgBox>
+
+            <Link to={{ pathname:`/cpdp/${ i.id }` }} onClick={() => this.openView( i.id )}>
+            <ImgBox>
+            { i.inStock === false ?
+            <Img url={ i.gallery[0]}>
+                <ImgBlock className="nn">
+                <b>OUT OF STOCK</b>
+                </ImgBlock>
+            </Img> : <Img url={ i.gallery[0]}/>
+            }
+            </ImgBox>
             </Link>
             
             <AddItemBox>
-            { this.props.inStock === true ? <AddItem2
-            // onClick={ this.addToBasket }
-            >
+            { i.inStock === true ?
+                <AddItem2 onClick={() => this.addToBasket( i.id )}>
             <div className="shopCar2"></div>
-            </AddItem2> : null }
+                </AddItem2>
+            : null }
             </AddItemBox>
             
-            <TextTittle>{ this.props.name }</TextTittle>
+            <TextTittle>{ i.name }</TextTittle>
             <TextTittle>
                 <b>
                 {/* { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]} */}
-                { this.props.prices[0
+                { i.prices[0
                     // this.props.currency[0][1] == null ? 0 : this.props.currency[0][1]
                 ].amount.toFixed(2)}
                 </b>
             </TextTittle>
+
             </InternBox>
         </CardBox>
-    )}
+        ))}</>
+    }
 }
 
 // redux
-// const mapStateToProps = state => {
-//     return {
-//         basket: state.basket,
-//         currency: state.currency
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        basket: state.basket,
+        currency: state.currency,
+        selProduct: state.selProduct
+    }
+}
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         ab_dispatch: ( data ) => dispatch( updtBasket( data )),
-//         viw_product: ( data ) => dispatch( selectProduct( data ))
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        ab_dispatch: ( data ) => dispatch( updtBasket( data )),
+        viw_product: ( data ) => dispatch( selectProduct( data ))
+    }
+}
 
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )( ProductItem );
-
-export default ProductItem;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)( ProductItem );
 
