@@ -1,6 +1,7 @@
 export const initialState = {
     basket: [],
     selProduct: [],
+    selPage: "all",
     aCard: 0,
     currency: [["USD"],[0],["$"]]
 }
@@ -15,6 +16,13 @@ export const updtBasket = ( data ) => {
 export const selectProduct = ( data ) => {
     return {
         type: "SELECT_PRODUCT",
+        payload: data
+    }
+}
+
+export const selectPage = ( data ) => {
+    return {
+        type: "SELECT_PAGE",
         payload: data
     }
 }
@@ -61,52 +69,53 @@ const reducer = ( state = initialState, action ) => {
             basket: [ ...state.basket, { ...action.payload, quantity: 1, numImg: 0 }],
             aCard: state.aCard + 1
         }
-        
-
         // case "UPDATE_BASKET":
         // return {
         // ...state,
         // basket: [ ...state.basket, action.payload ]
         // }
-
-
         case "SELECT_PRODUCT":
         return {
             ...state,
             selProduct: [ action.payload ]
         }
+        case "SELECT_PAGE":
+        return {
+            ...state,
+            selPage: [ action.payload ]
+        }
         case "DELETE_PRODUCT":
-        // let dl = state.basket.find(( item ) => item.id === action.payload.id );
-        // return dl.quantity > 1 ? {
-        //     ...state,
-        //     basket: state.basket.map(( item ) => item.id === action.payload.id ? {
-        //         ...item, quantity: item.quantity - 1
-        //     } : item ),
-        //     aCard: state.aCard - 1
-        // } : {
-        //     ...state,
-        //     basket: state.basket.filter(( item ) => item.id !== action.payload.id ),
-        //     aCard: state.aCard - 1
-        // }
+        let dl = state.basket.find(( item ) => item.id === action.payload.id );
+        return dl.quantity > 1 ? {
+            ...state,
+            basket: state.basket.map(( item ) => item.id === action.payload.id ? {
+                ...item, quantity: item.quantity - 1
+            } : item ),
+            aCard: state.aCard - 1
+        } : {
+            ...state,
+            basket: state.basket.filter(( item ) => item.id !== action.payload.id ),
+            aCard: state.aCard - 1
+        }
         case "CHANGE_CURRENCY":
-        // return {
-        //     ...state,
-        //     currency: [ action.payload ]
-        // }
+        return {
+            ...state,
+            currency: [ action.payload ]
+        }
         case "SUM_IMAGE":
-        // return {
-        //     ...state,
-        //     basket: state.basket.map(( item ) => item.id === action.payload ?
-        //     { ...item, numImg: item.numImg < state.basket.find(( x ) => x.id === action.payload ).gallery.length - 1
-        //     ? item.numImg + 1 : item.numImg = 0 } : item ),
-        // }
+        return {
+            ...state,
+            basket: state.basket.map(( item ) => item.id === action.payload ?
+            { ...item, numImg: item.numImg < state.basket.find(( x ) => x.id === action.payload ).gallery.length - 1
+            ? item.numImg + 1 : item.numImg = 0 } : item ),
+        }
         case "REST_IMAGE":
-        // return {
-        //     ...state,
-        //     basket: state.basket.map(( item ) => item.id === action.payload ?
-        //     { ...item, numImg: item.numImg <= 0 ? item.numImg = state.basket.find(( x ) =>
-        //     x.id === action.payload ).gallery.length - 1 : item.numImg - 1 } : item ),
-        // }
+        return {
+            ...state,
+            basket: state.basket.map(( item ) => item.id === action.payload ?
+            { ...item, numImg: item.numImg <= 0 ? item.numImg = state.basket.find(( x ) =>
+            x.id === action.payload ).gallery.length - 1 : item.numImg - 1 } : item ),
+        }
         default: return state
     }
 }

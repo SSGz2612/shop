@@ -3,14 +3,14 @@ import React from "react";
 import { Query } from "react-apollo";
 import { ctgQuery } from "../controls/queries";
 // redux
-import { selectProduct } from "../redux";
+import { selectPage } from "../redux";
 import { connect } from "react-redux";
 // browser
 import { Link } from "react-router-dom";
 
 class NavMenu extends React.Component {
     selOption = ( i ) => {
-        this.props.viw_product( i );
+        this.props.selectPage( i );
     }
 
     render() {
@@ -32,7 +32,6 @@ class NavMenu extends React.Component {
                     className="BtnNavMenu"
                     onClick={() => this.selOption( i )}
                     to="/"
-                    // to={`/${ i }` === "/all" ? "/" : `/${ i }`}
                 >
                 { i.toUpperCase() }
                 </Link>
@@ -48,7 +47,7 @@ class NavMenu extends React.Component {
 // redux
 const mapDispatchToProps = dispatch => {
     return {
-        viw_product: ( data ) => dispatch( selectProduct( data ))
+        selectPage: ( data ) => dispatch( selectPage( data ))
     }
 }
 

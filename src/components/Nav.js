@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import NavMenu from "./NavMenu";
+import Modal from "./Modal";
 // import NavMenu from "./NavMenu";
 // import SelectCurrency from "./SelectCurrency";
 // import Modal from "./Modal";
@@ -41,7 +42,7 @@ class Nav extends React.Component {
             <ElNav>
             {/* <SelectCurrency/> */}
             
-            {/* <div onClick={ this.showModal }>
+            <div onClick={ this.showModal }>
                 <ElCard className="shopCar">
                 {
                 this.props.basket.length ?
@@ -50,25 +51,24 @@ class Nav extends React.Component {
                 </ContainerCountCard> : false
                 }                
                 </ElCard>
-            </div> */}
+            </div>
             </ElNav>
         </NavBox>
-        {/* <Modal
+        <Modal
             initModal={ this.state.initModal }
             handleCancel={ this.handleCancel }
         >
-        </Modal> */}
+        </Modal>
         </NavPr>
     )}
 }
 
 // redux
-// const mapStateToProps = state => {
-//     return {
-//         basket: state.basket,
-//         aCard: state.aCard
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        basket: state.basket,
+        aCard: state.aCard
+    }
+}
 
-// export default connect( mapStateToProps, null )( Nav );
-export default Nav;
+export default connect( mapStateToProps, null )( Nav );

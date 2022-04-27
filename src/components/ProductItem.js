@@ -12,13 +12,12 @@ import { Link } from "react-router-dom";
 class ProductItem extends React.Component {
     addToBasket = ( i ) => {
         const toBsk = this.props.data.find(( x ) => x.id === i );
-        this.props.ab_dispatch( toBsk );
-        console.log( this.props.basket );
+        this.props.updtBasket( toBsk );
     }
 
     openView = ( i ) => {
         const selP = this.props.data.find(( x ) => x.id === i );
-        this.props.viw_product( selP );
+        this.props.selectProduct( selP );
         console.log( selP );
     }
     
@@ -75,8 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        ab_dispatch: ( data ) => dispatch( updtBasket( data )),
-        viw_product: ( data ) => dispatch( selectProduct( data ))
+        updtBasket: ( data ) => dispatch( updtBasket( data )),
+        selectProduct: ( data ) => dispatch( selectProduct( data ))
     }
 }
 

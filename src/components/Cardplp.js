@@ -16,15 +16,12 @@ class Cardplp extends React.Component {
                 if( loading ) return <div>Loading...</div>;
                 if( error ) return <div>Error :(</div>;
 
-                console.log( this.props.selProduct );    
-                console.log( data.category.products.filter(( i ) => i.category === this.props.selProduct[0] ))
+                const allPrd = data.category.products.filter(( i ) => i.category === this.props.selPage[0]);
+                const allPrdData = this.props.selPage[0] === "all" ? data.category.products : allPrd;
 
                 return <>
-                    <Header><b></b></Header>
-                    <BodyBox> <ProductItem
-                        data={ data.category.products.filter(( i ) => i.category === this.props.selProduct[0])}
-                    />
-                    </BodyBox>
+                    <Header><b>{ this.props.selPage === "all" ? this.props.selPage.toUpperCase() : this.props.selPage[0].toUpperCase()}</b></Header>
+                    <BodyBox><ProductItem data={ this.props.selPage === "all" ? data.category.products : allPrdData }/></BodyBox>
                 </>
             }}
             </Query>
@@ -34,6 +31,7 @@ class Cardplp extends React.Component {
 // redux
 const mapStateToProps = state => {
     return {
+        selPage: state.selPage,
         selProduct: state.selProduct
     }
 }
