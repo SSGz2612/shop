@@ -14,3 +14,9 @@ export const ctgQuery = gql`{
         }
         brand
 }}}`
+
+export const currency = gql`{
+  currencies {
+    label
+    symbol
+}}`

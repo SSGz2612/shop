@@ -1,9 +1,10 @@
 import React from "react";
 // styled
 import {
-    AddItem, BoxLR, BoxNR, BtnVCC, Lit, TxTittle, ContainerBoxLR, ContainerIMG, HeaderCardClient,
-    BodyBoxCardClient, BBCenterCardClient, CardBoxCardClient, ImgCardClient, ContainerBoxButtonCardClient,
-    AddItemCardClient
+    AddItem, AddItemCardClient, BBCenterCardClient, BoxLRModalInput, BodyBoxCardClient,
+    BoxLR, BoxNR, BtnVCC, BoxLR2, CardBoxCardClient, ContainerBoxButtonCardClient,
+    ContainerBoxLR, ContainerIMG, HeaderCardClient, HeaderCardClient2, ImgCardClient,
+    TxTittle, TxTittle3
 } from "../controls/Styled";
 // redux
 import { connect } from "react-redux";
@@ -33,18 +34,7 @@ class CardClient extends React.Component {
     render() {
     return <>
         <HeaderCardClient>
-            <TxTittle>
-            <span><b>My BAG </b>{ this.props.basket.length } Items</span>
-            </TxTittle>
-
-            <TxTittle>
-            <b>
-            TOTAL {( this.props.basket.map(( total ) =>
-            total.prices[this.props.currency[0][1] == null ? 0
-            : this.props.currency[0][1]].amount * total.quantity ).reduce(( sum, value ) =>
-            sum + value, 0 )).toFixed(2)} { this.props.currency[2] === "$" ? "$" : this.props.currency[0][2]}
-            </b>
-            </TxTittle>
+        <TxTittle> <span><b>CART</b></span> </TxTittle>
         </HeaderCardClient>
         
         <BodyBoxCardClient>
@@ -55,19 +45,88 @@ class CardClient extends React.Component {
         <ContainerBoxLR>
             <BoxLR><TxTittle><b>{ id.name }</b></TxTittle></BoxLR>
             <BoxLR><TxTittle>{ id.brand }</TxTittle></BoxLR>
-            <BoxLR>
-                <TxTittle>
-                {( id.prices[this.props.currency[0][1] == null ? 0
-                : this.props.currency[0][1]].amount ).toFixed(2)} { this.props.currency[0][0] }
+            <BoxLR2>
+                <TxTittle><b>
+                { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]} {( id.prices[this.props.currency[0][1] == null ? 0
+                : this.props.currency[0][1]].amount ).toFixed(2)}</b>
                 </TxTittle>
-            </BoxLR>
-            <BoxLR>
-                <TxTittle>
-                {(( id.prices[this.props.currency[0][1] == null ? 0 : this.props.currency[0][1]].amount )
-                * ( this.props.basket[ index ].quantity )).toFixed(2)} { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]}
-                <Lit> x { this.props.basket[ index ].quantity } </Lit>
-                </TxTittle>
-            </BoxLR>
+            </BoxLR2>
+            <BoxLRModalInput>
+                {/* just for paint in the overlay */}
+                { id.category === "tech" ? <>
+                    <TxTittle3>MEMORY:</TxTittle3>
+                    <div className="contInput">
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">8</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="S"/><div className="ipt">16</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="M"/><div className="ipt">32</div>
+                        </div>
+                        </label>
+                    </div>
+                </> : <>
+                    <TxTittle3>SIZE:</TxTittle3>
+                    <div className="contInput">
+                        { id.name === "Nike Air Huarache Le" ? null :
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">XS</div>
+                        </div>
+                        </label>
+                        }
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="S"/><div className="ipt">S</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="M"/><div className="ipt">M</div>
+                        </div>
+                        </label>
+                        { id.name === "Nike Air Huarache Le" ? null :
+                        <label>
+                        <div className="sizeCl">
+                            <input type="radio" name={ id.name } value="L"/><div className="ipt">L</div>
+                        </div>
+                        </label>
+                        }
+                    </div>
+                    </>
+                }
+            </BoxLRModalInput>
+
+            <BoxLRModalInput>
+                <TxTittle3>COLOR:</TxTittle3>
+                <div className="contInput">
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="a"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "gray" : "black" : "white" }`}>C</div>
+                    </div>
+                    </label>
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="b"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "black" : "skyblue" : "gray" }`}>C</div>
+                    </div>
+                    </label>
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="c"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "musgo" : "orange" : "black" }`}>C</div>
+                    </div>
+                    </label>
+                </div>
+            </BoxLRModalInput>
         </ContainerBoxLR>
         
         <ContainerIMG>
@@ -82,21 +141,35 @@ class CardClient extends React.Component {
                 url={ this.props.basket.find(( x ) => x.id === id.id ).gallery[ this.props.basket.find(( x ) => x.id === id.id ).numImg ]}
             >
                 <ContainerBoxButtonCardClient>
-                
-                <AddItemCardClient onClick={() =>
-                    this.changeImgL( id.id )}>{"<"}</AddItemCardClient>
-
-                <AddItemCardClient onClick={() =>
-                    this.changeImgD( id.id )}>{">"}</AddItemCardClient>
+                <AddItemCardClient onClick={() => this.changeImgL( id.id )}>{"<"}</AddItemCardClient>
+                <AddItemCardClient onClick={() => this.changeImgD( id.id )}>{">"}</AddItemCardClient>
                 </ContainerBoxButtonCardClient>
 
             </ImgCardClient>
             </ContainerBoxLR>
         </ContainerIMG>
         </CardBoxCardClient>
-        
         )}
-        <Link to="/"><BtnVCC>CHECK OUT</BtnVCC></Link>
+
+        <HeaderCardClient2>
+        <TxTittle><b>Tax: $15.00</b></TxTittle>
+        </HeaderCardClient2>
+        <HeaderCardClient2>
+        <TxTittle><b>Qty: { this.props.aCard}</b></TxTittle>
+        </HeaderCardClient2>
+
+        <HeaderCardClient2>
+        <TxTittle>
+            <b>
+            Total { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]} {( this.props.basket.map(( total ) =>
+            total.prices[this.props.currency[0][1] == null ? 0
+            : this.props.currency[0][1]].amount * total.quantity ).reduce(( sum, value ) =>
+            sum + value, 0 )).toFixed(2)}
+            </b>
+        </TxTittle>
+        </HeaderCardClient2>
+
+        <Link to="/"><BtnVCC>ORDER</BtnVCC></Link>        
         </BBCenterCardClient>
         </BodyBoxCardClient>
     </>}

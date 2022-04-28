@@ -1,10 +1,9 @@
 import React from "react";
 // styled
 import {
-    AddItem, AddItemCardClient, BoxLRModal, BoxNR, BtnContainer,
-    BtnModal, BtnVCC2, BtnVCCModal, BoxLR, CardBoxModal,
-    ContainerBoxButtonCardClient, ContainerBoxLR, ContainerIMG,
-    ImgCardClient, Lit, Overview, OvwContainer, TxTittle, TxTittle2
+    AddItem, AddItemCardClient, BoxLRModal, BoxNR, BtnContainer, BtnVCC2, BtnVCCModal,
+    BoxLR, BoxLRModalInput, CardBoxModal, ContainerBoxButtonCardClient, ContainerBoxLR,
+    ContainerIMG, ImgCardClient, Overview, OvwContainer, TxTittle, TxTittle2, TxTittle3
 } from "../controls/Styled";
 // redux
 import { connect } from "react-redux";
@@ -37,55 +36,126 @@ class Modal extends React.Component {
     return(
         <>
         { this.props.initModal &&
-        <Overview>
-        <OvwContainer>
+        <Overview onClick={ this.props.handleCancel }>
+        <OvwContainer onClick={ this.props.stopProp }>
 
         <BtnContainer>
         <TxTittle>
-            <span><b>My BAG </b>{ this.props.basket.length } Items</span>
+            <span><b>My Bag, </b>{`${ this.props.basket.length <= 1 ? this.props.basket.length + " Item" : this.props.basket.length + " Items" }`}</span>
         </TxTittle>
-        <BtnModal onClick={ this.props.handleCancel }><b>x</b></BtnModal>
         </BtnContainer>
 
         { this.props.basket?.map(( id, index ) =>
         
         <CardBoxModal key={ index }>
 
-            <ContainerBoxLR>
-                <BoxLRModal><TxTittle><b>{ id.name }</b></TxTittle></BoxLRModal>
-                <BoxLRModal><TxTittle>{ id.brand }</TxTittle></BoxLRModal>
-                <BoxLRModal>
-                    <TxTittle>
-                    {( id.prices[this.props.currency[0][1] == null ? 0
-                    : this.props.currency[0][1]].amount ).toFixed(2)} { this.props.currency[0][0] }
-                    </TxTittle>
-                </BoxLRModal>
-                <BoxLRModal>
-                    <TxTittle>
-                    {(( id.prices[this.props.currency[0][1] == null ? 0 : this.props.currency[0][1]].amount )
-                    * ( this.props.basket[ index ].quantity )).toFixed(2)} { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]}
-                    <Lit> x { this.props.basket[ index ].quantity } </Lit>
-                    </TxTittle>
-                </BoxLRModal>
-            </ContainerBoxLR>
+        <ContainerBoxLR>
+            <BoxLRModal><TxTittle><b>{ id.name }</b></TxTittle></BoxLRModal>
+            <BoxLRModal><TxTittle>{ id.brand }</TxTittle></BoxLRModal>
             
-            <ContainerIMG>
-                <ContainerBoxLR>
-                <AddItem onClick={() => this.handleClickRes( id.id )}>-</AddItem>
-                <BoxNR><b>{ this.props.basket[ index ].quantity }</b></BoxNR>
-                <AddItem onClick={() => this.handleClickSum( id.id )}>+</AddItem>
-                </ContainerBoxLR>
+            <BoxLRModal>
+            <TxTittle><b>
+            { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]} {( id.prices[this.props.currency[0][1] == null ? 0 : this.props.currency[0][1]].amount ).toFixed(2)}</b>
+            </TxTittle>
+            </BoxLRModal>
 
-                <ContainerBoxLR>
-                    <ImgCardClient url={ this.props.basket.find(( x ) => x.id === id.id ).gallery[ this.props.basket.find(( x ) =>
-                    x.id === id.id ).numImg ]}>
-                    <ContainerBoxButtonCardClient>
-                    <AddItemCardClient onClick={() => this.changeImgL( id.id )}>{"<"}</AddItemCardClient>
-                    <AddItemCardClient onClick={() => this.changeImgD( id.id )}>{">"}</AddItemCardClient>
-                    </ContainerBoxButtonCardClient>
-                    </ImgCardClient>
-                </ContainerBoxLR>
-            </ContainerIMG>
+            <BoxLRModalInput>
+                {/* just for paint in the overlay */}
+                { id.category === "tech" ? <>
+                    <TxTittle3>MEMORY:</TxTittle3>
+                    <div className="contInput">
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">8</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="S"/><div className="ipt">16</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="M"/><div className="ipt">32</div>
+                        </div>
+                        </label>
+                    </div>
+                </> : <>
+                    <TxTittle3>SIZE:</TxTittle3>
+                    <div className="contInput">
+                        { id.name === "Nike Air Huarache Le" ? null :
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">XS</div>
+                        </div>
+                        </label>
+                        }
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="S"/><div className="ipt">S</div>
+                        </div>
+                        </label>
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="M"/><div className="ipt">M</div>
+                        </div>
+                        </label>
+                        { id.name === "Nike Air Huarache Le" ? null :
+                        <label>
+                        <div className="size">
+                            <input type="radio" name={ id.name } value="L"/><div className="ipt">L</div>
+                        </div>
+                        </label>
+                        }
+                    </div>
+                    </>
+                }
+            </BoxLRModalInput>
+
+            <BoxLRModalInput>
+                <TxTittle3>COLOR:</TxTittle3>
+                <div className="contInput">
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="a"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "gray" : "black" : "white" }`}>C</div>
+                    </div>
+                    </label>
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="b"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "black" : "skyblue" : "gray" }`}>C</div>
+                    </div>
+                    </label>
+                    <label>
+                    <div className="colors">
+                        <input type="radio" name={`color ${ id.name }`} value="c"/>
+                        <div className={ `clr ${ id.category === "clothes" ? id.id === "huarache-x-stussy-le" ? "musgo" : "orange" : "black" }`}>C</div>
+                    </div>
+                    </label>
+                </div>
+            </BoxLRModalInput>
+            {/* {(( id.prices[this.props.currency[0][1] == null ? 0 : this.props.currency[0][1]].amount ) * ( this.props.basket[ index ].quantity )).toFixed(2)} */}
+
+        </ContainerBoxLR>
+        
+        <ContainerIMG>
+            <ContainerBoxLR>
+            <AddItem onClick={() => this.handleClickRes( id.id )}>-</AddItem>
+            <BoxNR><b>{ this.props.basket[ index ].quantity }</b></BoxNR>
+            <AddItem onClick={() => this.handleClickSum( id.id )}>+</AddItem>
+            </ContainerBoxLR>
+
+            <ContainerBoxLR>
+                <ImgCardClient url={ this.props.basket.find(( x ) => x.id === id.id ).gallery[ this.props.basket.find(( x ) =>
+                x.id === id.id ).numImg ]}>
+                <ContainerBoxButtonCardClient>
+                <AddItemCardClient onClick={() => this.changeImgL( id.id )}>{"<"}</AddItemCardClient>
+                <AddItemCardClient onClick={() => this.changeImgD( id.id )}>{">"}</AddItemCardClient>
+                </ContainerBoxButtonCardClient>
+                </ImgCardClient>
+            </ContainerBoxLR>
+        </ContainerIMG>
 
         </CardBoxModal>
         
@@ -96,7 +166,7 @@ class Modal extends React.Component {
             <BoxLR><b>TOTAL</b></BoxLR>
             
             <BoxLR><b>
-                { this.props.currency[2] === "$" ? "$" : this.props.currency[0][2]}
+                { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]}
                 {( this.props.basket.map(( total ) =>
                 total.prices[this.props.currency[0][1] == null ? 0
                 : this.props.currency[0][1]].amount * total.quantity ).reduce(( sum, value ) =>

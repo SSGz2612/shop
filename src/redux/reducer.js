@@ -2,6 +2,7 @@ export const initialState = {
     basket: [],
     selProduct: [],
     selPage: "all",
+    updtImage: [ null, null ],
     aCard: 0,
     currency: [["USD"],[0],["$"]]
 }
@@ -23,6 +24,13 @@ export const selectProduct = ( data ) => {
 export const selectPage = ( data ) => {
     return {
         type: "SELECT_PAGE",
+        payload: data
+    }
+}
+
+export const updtImage = ( data ) => {
+    return {
+        type: "UPDATE_IMAGE",
         payload: data
     }
 }
@@ -83,6 +91,11 @@ const reducer = ( state = initialState, action ) => {
         return {
             ...state,
             selPage: [ action.payload ]
+        }
+        case "UPDATE_IMAGE":
+        return {
+            ...state,
+            updtImage: [ action.payload ]
         }
         case "DELETE_PRODUCT":
         let dl = state.basket.find(( item ) => item.id === action.payload.id );

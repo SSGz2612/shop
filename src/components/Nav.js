@@ -1,10 +1,8 @@
 import React from "react";
 import "../App.css";
 import NavMenu from "./NavMenu";
+import SelectCurrency from "./SelectCurrency";
 import Modal from "./Modal";
-// import NavMenu from "./NavMenu";
-// import SelectCurrency from "./SelectCurrency";
-// import Modal from "./Modal";
 // styled
 import {
     NavPr, NavBox, ElNav, ElCard, CountCard, ContainerCountCard
@@ -25,6 +23,10 @@ class Nav extends React.Component {
         this.setState({ initModal: false })
     }
 
+    stopPropagation = ( e ) => {
+    e.stopPropagation();
+    }
+
     render() {
     return (
         <NavPr>
@@ -40,23 +42,25 @@ class Nav extends React.Component {
             </ElNav>
 
             <ElNav>
-            {/* <SelectCurrency/> */}
+            <SelectCurrency/>
             
             <div onClick={ this.showModal }>
                 <ElCard className="shopCar">
                 {
                 this.props.basket.length ?
                 <ContainerCountCard>
-                    <CountCard><b>{ this.props.aCard }</b></CountCard>                
+                    <CountCard><b>{ this.props.aCard }</b></CountCard>
                 </ContainerCountCard> : false
                 }                
                 </ElCard>
             </div>
             </ElNav>
         </NavBox>
+
         <Modal
             initModal={ this.state.initModal }
             handleCancel={ this.handleCancel }
+            stopProp={ this.stopPropagation }
         >
         </Modal>
         </NavPr>

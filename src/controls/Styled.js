@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 /*** Nav ***/
 let Principal_Cl = "#5ECE7B",
-Secondary_Cl = "#EFEFEF";
+Secondary_Cl = "#EFEFEF",
+Third_Cl = "#AAAAAA";
 
 export const NavPr = styled.nav`
 position: fixed;
@@ -98,7 +99,6 @@ flex-direction: column;
 width: 390px;
 height: auto;
 min-height: 450px;
-/* border: 1px solid ${ Secondary_Cl }; */
 
 &:hover {
     box-shadow: rgba( 0, 0, 0, 0.1 ) 0px 4px 12px;
@@ -133,7 +133,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: rgba( 255, 255, 255, 0.75 );
-color: black;
+color: ${ Third_Cl };
 width: 100%;
 height: 100%;
 `
@@ -170,22 +170,6 @@ cursor: pointer;
 
 &:hover { color: ${ Principal_Cl }; }
 `
-export const AddItem2 = styled.button`
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: white;
-width: 45px;
-height: 45px;
-border: none;
-border-radius: 25px;
-cursor: pointer;
-
-&:hover {
-    background-color: ${ Principal_Cl };
-    color: white;
-}
-`
 export const TextTittle = styled.div`
 display: flex;
 width: 360px;
@@ -195,12 +179,19 @@ padding: 5px 0px;
 /*** CARD_CLIENT ***/
 export const HeaderCardClient = styled.header`
 display: flex;
-justify-content: space-around;
+justify-content: start;
 align-items: flex-end;
 font-size: 20px;
-width: 100%;
+width: 80%;
 height: 120px;
-margin: 0px auto 20px auto;
+margin: 0 auto 20px auto;
+`
+export const HeaderCardClient2 = styled.header`
+display: flex;
+justify-content: start;
+font-size: 20px;
+width: 80%;
+margin: 5px 0;
 `
 export const BodyBoxCardClient = styled.div`
 display: grid;
@@ -225,6 +216,7 @@ align-items: center;
 width: 80%;
 height: auto;
 border-top: 2px solid ${ Secondary_Cl };
+border-bottom: 2px solid ${ Secondary_Cl };
 
 @media( max-width: 600px ) { width: 100%; }
 `
@@ -242,13 +234,15 @@ flex-direction: column;
 `
 export const ContainerBoxButtonCardClient = styled.div`
 display: flex;
-justify-content: space-between;
+justify-content: end;
 align-items: end;
+width: 100%;
 `
 export const ContainerBoxTx = styled.div`
 display: flex;
 flex-direction: column;
 width: 35%;
+border: 1px solid black;
 
 @media( max-width: 1000px ) {
     align-items: center;
@@ -264,14 +258,26 @@ align-items: center;
 export const BoxLR = styled.div`
 display: flex;
 align-items: center;
+height: auto;
+`
+export const BoxLR2 = styled.div`
+display: flex;
+align-items: center;
 min-height: 50px;
 height: auto;
 `
 export const BoxLRModal = styled.div`
 display: flex;
 align-items: center;
-min-height: 50px;
+margin: 2px 0;
 width: 180px;
+height: auto;
+`
+export const BoxLRModalInput = styled.div`
+display: flex;
+justify-content: center;
+flex-direction: column;
+width: auto;
 height: auto;
 `
 export const BoxNR = styled.div`
@@ -285,7 +291,7 @@ height: auto;
 export const TxTittle = styled.div`
 display: flex;
 font-size: 20px;
-padding: 5px 20px;
+padding: 0px 20px;
 `
 export const TxTittle2 = styled.div`
 display: flex;
@@ -293,6 +299,12 @@ justify-content: space-between;
 font-size: 20px;
 width: 100%;
 padding: 5px 20px;
+`
+export const TxTittle3 = styled.div`
+display: flex;
+font-size: 13px;
+font-weight: 600;
+padding: 5px 0px 0px 20px;
 `
 export const InfoTextTittle = styled.div`
 padding: 5px 20px;
@@ -313,17 +325,15 @@ export const AddItemCardClient = styled.button`
 display: flex;
 justify-content: center;
 align-items: center;
-color: ${ Secondary_Cl };
-font-size: 20px;
-background-color: white;
-margin: 10px;
-width: 40px;
-height: 20px;
-border: 1px solid ${ Secondary_Cl };
+color: white;
+font-size: 15px;
+background-color: rgba( 0, 0, 0, 0.75 );
+margin: 5px 2.5px;
+width: 24px;
+height: 24px;
+border: none;
 border-radius: 2px;
 cursor: pointer;
-
-&:hover { color: black; }
 `
 
 /*** Card - VIEW_CLIENT ***/
@@ -448,10 +458,6 @@ margin: 20px;
 width: 250px;
 height: 50px;
 `
-export const Lit = styled.span`
-color: ${ Principal_Cl };
-padding: 0px 5px;
-`
 
 /*** Modal ***/
 export const Overview = styled.div`
@@ -482,16 +488,4 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 min-height: 60px;
-`
-export const BtnModal = styled.button`
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: white;
-margin: 20px;
-width: 40px;
-height: 40px;
-border: 3px solid ${ Secondary_Cl };
-border-radius: 20px;
-cursor: pointer;
 `
