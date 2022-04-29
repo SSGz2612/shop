@@ -43,6 +43,9 @@ justify-content: center;
 export const Select2 = styled.div`
 display: flex;
 align-items: center;
+font-size: 18px;
+font-family: Raleway-Medium;
+font-weight: 500;
 margin: 20px;
 padding: 5px 10px 5px 5px;
 `
