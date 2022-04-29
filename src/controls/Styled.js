@@ -11,6 +11,7 @@ background: white;
 width: 100%;
 height: 60px;
 border-bottom: 1px solid ${ Secondary_Cl };
+z-index: 1;
 `
 export const NavBox = styled.div`
 display: grid;
@@ -39,10 +40,16 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
+export const Select2 = styled.div`
+display: flex;
+align-items: center;
+margin: 20px;
+padding: 5px 10px 5px 5px;
+`
 export const Select = styled.select`
 display: flex;
 margin: 20px;
-padding: 5px;
+padding: 5px 10px 5px 5px;
 border: none;
 `
 export const ElCard = styled.div`
@@ -242,7 +249,6 @@ export const ContainerBoxTx = styled.div`
 display: flex;
 flex-direction: column;
 width: 35%;
-border: 1px solid black;
 
 @media( max-width: 1000px ) {
     align-items: center;
@@ -277,7 +283,7 @@ export const BoxLRModalInput = styled.div`
 display: flex;
 justify-content: center;
 flex-direction: column;
-width: auto;
+width: 100%;
 height: auto;
 `
 export const BoxNR = styled.div`
@@ -302,9 +308,17 @@ padding: 5px 20px;
 `
 export const TxTittle3 = styled.div`
 display: flex;
+font-family: RobotoCondensed-Bold;
 font-size: 13px;
 font-weight: 600;
 padding: 5px 0px 0px 20px;
+`
+export const TxTittle4 = styled.div`
+display: flex;
+align-items: center;
+font-size: 20px;
+padding: 0 20px;
+height: 50px;
 `
 export const InfoTextTittle = styled.div`
 padding: 5px 20px;
@@ -344,7 +358,6 @@ align-items: center;
 width: 80%;
 height: 100%;
 min-height: 350px;
-border-top: 2px solid ${ Secondary_Cl };
 
 &:hover {
     box-shadow: rgba( 0, 0, 0, 0.1 ) 0px 4px 12px;
@@ -469,6 +482,7 @@ top: 0;
 left: 0;
 width: 100vw;
 height: 100vh;
+z-index: 1;
 /* *** */
 background-color: rgba( 0, 0, 0, 0.50 );
 
@@ -488,4 +502,46 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 min-height: 60px;
+`
+
+/*** Currency ***/
+export const ContCurrency = styled.div`
+display: flex;
+position: absolute;
+flex-direction: column;
+/* setting the view */
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+z-index: 2;
+/* background-color: rgba( 0, 0, 0, 0.50 ); */
+`
+export const ContCurrencyBox = styled.div`
+display: flex;
+position: absolute;
+flex-direction: column;
+top: 6%;
+right: 13%;
+width: 100px;
+height: 200px;
+background-color: rgba( 0, 0, 0, 0.50 );
+box-shadow: rgba( 0, 0, 0, 0.1 ) 0px 4px 12px;
+`
+export const CurrencyBox = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-around;
+font-size: 18px;
+font-family: Raleway-Medium;
+font-weight: 500;
+position: relative;
+padding: 0px 10px;
+background-color: white;
+width: 80px;
+height: 40px;
+
+&:hover {
+    background-color: ${ Secondary_Cl };
+}
 `

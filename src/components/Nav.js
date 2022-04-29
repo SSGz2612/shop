@@ -1,11 +1,11 @@
 import React from "react";
 import "../App.css";
 import NavMenu from "./NavMenu";
-import SelectCurrency from "./SelectCurrency";
+import SelectCurrency2 from "./SelectCurrency2";
 import Modal from "./Modal";
 // styled
 import {
-    NavPr, NavBox, ElNav, ElCard, CountCard, ContainerCountCard
+    NavPr, NavBox, ElNav, ElCard, CountCard, ContainerCountCard, Select2
 } from "../controls/Styled";
 // redux
 import { connect } from "react-redux";
@@ -13,14 +13,22 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class Nav extends React.Component {
-    state = { initModal: false }
+    state = {
+        initModal: false,
+        initCurrn: false
+    }
 
     showModal = () => {
         this.setState({ initModal: true })
     }
 
+    showCurrn = () => {
+        this.setState({ initCurrn: true })
+    }
+
     handleCancel = () => {
-        this.setState({ initModal: false })
+        this.setState({ initModal: false });
+        this.setState({ initCurrn: false });
     }
 
     stopPropagation = ( e ) => {
@@ -30,6 +38,12 @@ class Nav extends React.Component {
     render() {
     return (
         <NavPr>
+        
+        <SelectCurrency2
+            initCurrn={ this.state.initCurrn }
+            handleCancel={ this.handleCancel }
+        />
+
         <NavBox>
             <ElNav>
                 <NavMenu/>
@@ -42,7 +56,9 @@ class Nav extends React.Component {
             </ElNav>
 
             <ElNav>
-            <SelectCurrency/>
+            <div onClick={ this.showCurrn }>
+                <Select2>{ this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]} <div className="v"></div> </Select2>
+            </div>
             
             <div onClick={ this.showModal }>
                 <ElCard className="shopCar">
@@ -71,7 +87,8 @@ class Nav extends React.Component {
 const mapStateToProps = state => {
     return {
         basket: state.basket,
-        aCard: state.aCard
+        aCard: state.aCard,
+        currency: state.currency
     }
 }
 

@@ -2,7 +2,7 @@ export const initialState = {
     basket: [],
     selProduct: [],
     selPage: "all",
-    updtImage: [ null, null ],
+    updtImage: [ "", "" ],
     aCard: 0,
     currency: [["USD"],[0],["$"]]
 }

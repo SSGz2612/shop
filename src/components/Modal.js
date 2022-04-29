@@ -41,7 +41,7 @@ class Modal extends React.Component {
 
         <BtnContainer>
         <TxTittle>
-            <span><b>My Bag, </b>{`${ this.props.basket.length <= 1 ? this.props.basket.length + " Item" : this.props.basket.length + " Items" }`}</span>
+            <span><b>My Bag, </b>{`${ this.props.aCard <= 1 ? this.props.aCard + " Item" : this.props.aCard + " Items" }`}</span>
         </TxTittle>
         </BtnContainer>
 
@@ -163,7 +163,7 @@ class Modal extends React.Component {
 
         <BtnContainer>
         <TxTittle2>
-            <BoxLR><b>TOTAL</b></BoxLR>
+            <BoxLR><b>Total</b></BoxLR>
             
             <BoxLR><b>
                 { this.props.currency[2] == "$" ? "$" : this.props.currency[0][2]}

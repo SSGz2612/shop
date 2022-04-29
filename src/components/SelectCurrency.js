@@ -27,7 +27,7 @@ class SelectCurrency extends React.Component {
             return(
                 <Select onChange={ selectedCurrency }>
                 { data.currencies.map(( currency, index ) =>
-                    <option key={ index } value={ currency.label }>
+                    <option className="optionCurrency" key={ index } value={ currency.label }>
                         { currency.symbol }
                     </option>
                 )}

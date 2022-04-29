@@ -155,7 +155,7 @@ class CardClient extends React.Component {
         <TxTittle><b>Tax: $15.00</b></TxTittle>
         </HeaderCardClient2>
         <HeaderCardClient2>
-        <TxTittle><b>Qty: { this.props.aCard}</b></TxTittle>
+        <TxTittle><b>Qty: { this.props.aCard }</b></TxTittle>
         </HeaderCardClient2>
 
         <HeaderCardClient2>

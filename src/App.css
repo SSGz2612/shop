@@ -23,6 +23,11 @@
   src: url(../public/fonts/Raleway-Light.ttf);
 }
 
+@font-face {
+  font-family: RobotoCondensed-Bold;
+  src: url(../public/fonts/RobotoCondensed-Bold.ttf);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Raleway-Regular', 'Segoe UI', 'Roboto', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -37,6 +42,17 @@ body {
   background-size: 40px;
   width: 40px;
   height: 40px;
+}
+
+.v {
+  display: flex;
+  align-items: center;
+  background-image: url(../public/tools/v.svg);
+  background-repeat: no-repeat;
+  background-size: 10px;
+  margin: 0px 10px;
+  width: 10px;
+  height: 5px;
 }
 
 .shopCar {
@@ -91,6 +107,11 @@ body {
 }
 
 .nn, a:link { text-decoration: none; }
+
+.optionCurrency:checked {
+  height: 50px;
+  border: none;
+}
 
 /*** Input ***/
 .contInput {
@@ -193,4 +214,30 @@ body {
   width: 100%;
   height: 100%;
   border: 1px solid black;
+}
+
+/*** InputViewClient ***/
+.sizeVw > input { display: none; }
+.sizeVw {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 12px;
+  margin: 0 10px 0 0;
+  color: black;
+  width: 50px;
+  height: 38px;
+  border: 1px solid black;
+}
+
+.sizeVw input:checked + .ipt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  font-size: 12px;
+  color: white;
+  width: 100%;
+  height: 100%;
 }
