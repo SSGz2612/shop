@@ -4,7 +4,7 @@ export const initialState = {
     selPage: ["all"],
     updtImage: [ "", "" ],
     aCard: 0,
-    currency: [["USD"],[0],["$"]]
+    currency: [["USD"],[0],["$"]],
 }
 
 export const updtBasket = ( data ) => {

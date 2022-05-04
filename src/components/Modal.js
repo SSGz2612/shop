@@ -7,13 +7,11 @@ import {
 } from "../controls/Styled";
 // redux
 import { connect } from "react-redux";
-import { delProduct, restImage, sumImage, updtBasket } from "../redux";
+import { delProduct, restImage, sumImage, updtBasket, selectAttribute } from "../redux";
 // browser
 import { Link } from "react-router-dom";
 
 class Modal extends React.Component {
-    state = { i: 0 }
-
     handleClickRes = ( e ) => {
         let bkt = this.props.basket.find(( bkt ) => bkt.id === e );
         this.props.dl_dispatch( bkt );
@@ -60,56 +58,23 @@ class Modal extends React.Component {
             </BoxLRModal>
 
             <BoxLRModalInput>
-                {/* just for paint in the overlay */}
-                { id.category === "tech" ? <>
-                    <TxTittle3>MEMORY:</TxTittle3>
-                    <div className="contInput">
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">8</div>
-                        </div>
-                        </label>
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="S"/><div className="ipt">16</div>
-                        </div>
-                        </label>
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="M"/><div className="ipt">32</div>
-                        </div>
-                        </label>
+                { id.attributes[0] === undefined ? null : <>
+                <TxTittle3>{( id.attributes[0].name ).toUpperCase() }</TxTittle3>
+                <div className="contInput">
+                { id.attributes[0].items.map(( v ) =>(
+                    <label key={ v.id }>
+                    <div className="size">
+                        <input
+                            type="radio"
+                            name={ id.name }
+                            value={ v.displayValue } 
+                        />
+                        <div className="ipt">{ v.value }</div>
                     </div>
-                </> : <>
-                    <TxTittle3>SIZE:</TxTittle3>
-                    <div className="contInput">
-                        { id.name === "Nike Air Huarache Le" ? null :
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="XS"/><div className="ipt">XS</div>
-                        </div>
-                        </label>
-                        }
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="S"/><div className="ipt">S</div>
-                        </div>
-                        </label>
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="M"/><div className="ipt">M</div>
-                        </div>
-                        </label>
-                        { id.name === "Nike Air Huarache Le" ? null :
-                        <label>
-                        <div className="size">
-                            <input type="radio" name={ id.name } value="L"/><div className="ipt">L</div>
-                        </div>
-                        </label>
-                        }
-                    </div>
-                    </>
-                }
+                    </label>
+                ))}
+                </div>
+                </>}
             </BoxLRModalInput>
 
             <BoxLRModalInput>
@@ -193,7 +158,7 @@ const mapStateToProps = state => {
         basket: state.basket,
         total: state.total,
         currency: state.currency,
-        aCard: state.aCard
+        aCard: state.aCard,
     }
 }
 
@@ -203,7 +168,7 @@ const mapDispatchToProps = dispatch => {
         dl_dispatch: ( data ) => dispatch( delProduct( data )),
 
         ch_dispatch: ( data ) => dispatch( sumImage( data )),
-        rs_dispatch: ( data ) => dispatch( restImage( data ))
+        rs_dispatch: ( data ) => dispatch( restImage( data )),
     }
 }
 
