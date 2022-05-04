@@ -15,15 +15,16 @@ class NavMenu extends React.Component {
 
     render() {
     return(
-        <Query query={ ctgQuery }>
+        <Query query={ ctgQuery } variables={{ ctg: "all" }}>
         {({ data, loading, error }) => {
             if( loading ) return <div>Loading...</div>;
             if( error ) return <div>Error :(</div>;
             
-            const fullCtg = "all";
-            const ctg = data.category.products.map(( x ) => x.category );
-            const listCtg = ctg.filter(( i, index ) => { return ctg.indexOf( i ) === index });
-            const list = [ fullCtg ].concat( listCtg );
+            const allCtg = "all";
+            const fCtg = data.category.products.map(( x ) => x.category );
+            const listCtg = fCtg.filter(( i, index ) => { return fCtg.indexOf( i ) === index });
+            
+            const list = [ allCtg ].concat( listCtg );
             
             return <>{
                 list.map(( i, index ) => (
@@ -45,6 +46,12 @@ class NavMenu extends React.Component {
 }
 
 // redux
+const mapStateToProps = state => {
+    return {
+        selPage: state.selPage,
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         selectPage: ( data ) => dispatch( selectPage( data ))
@@ -52,6 +59,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )( NavMenu );

@@ -52,7 +52,6 @@ class CardClient extends React.Component {
                 </TxTittle>
             </BoxLR2>
             <BoxLRModalInput>
-                {/* just for paint in the overlay */}
                 { id.category === "tech" ? <>
                     <TxTittle3>MEMORY:</TxTittle3>
                     <div className="contInput">

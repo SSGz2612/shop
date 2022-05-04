@@ -1,4 +1,7 @@
 import React from "react";
+// apollo
+import { Query } from "react-apollo";
+import { prdQuery } from "../controls/queries";
 // styled
 import {
     AddItemBox, CardBox, ImgBox, Img, ImgBlock, InternBox, TextTittle
@@ -10,14 +13,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class ProductItem extends React.Component {
-    addToBasket = ( i ) => {
-        const toBsk = this.props.data.find(( x ) => x.id === i );
-        this.props.updtBasket( toBsk );
-    }
-
     openView = ( i ) => {
-        const selP = this.props.data.find(( x ) => x.id === i );
-        this.props.selectProduct( selP );
+        this.props.selectProduct( i );
     }
     
     render() {
@@ -35,13 +32,22 @@ class ProductItem extends React.Component {
             }
             </ImgBox>
             </Link>
-            
+
             <AddItemBox>
             { i.inStock === true ?
-            <button className="AddItem2" onClick={() => this.addToBasket( i.id )}>
-            <div className="shopCar2"></div>
-            </button>
+                <Query query={ prdQuery } variables={{ product: i.id }}>
+                {({ data, loading, error }) => {
+                if( loading ) return <div>Loading...</div>;
+                if( error ) return <div>Error :(</div>;
 
+                return(
+                    <button className="AddItem2" onClick={() => this.props.updtBasket( data.product )}>
+                    <div className="shopCar2"></div>
+                    </button>
+                )
+                
+                }}
+                </Query>
             : null }
             </AddItemBox>
             
@@ -57,7 +63,8 @@ class ProductItem extends React.Component {
 
             </InternBox>
         </CardBox>
-        ))}</>
+        ))}
+        </>
     }
 }
 
@@ -81,4 +88,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )( ProductItem );
-

@@ -362,10 +362,6 @@ width: 80%;
 height: 100%;
 min-height: 350px;
 
-&:hover {
-    box-shadow: rgba( 0, 0, 0, 0.1 ) 0px 4px 12px;
-}
-
 @media( max-width: 1350px ) { flex-direction: column; }
 `
 export const ContainerBoxVC = styled.div`
